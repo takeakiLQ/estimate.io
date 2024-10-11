@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/estimate.io/static/css/main.7a02b319.css",
-    "main.js": "/estimate.io/static/js/main.a04e4d80.js",
+    "main.js": "/estimate.io/static/js/main.562416a7.js",
     "static/js/453.44193647.chunk.js": "/estimate.io/static/js/453.44193647.chunk.js",
     "index.html": "/estimate.io/index.html",
     "main.7a02b319.css.map": "/estimate.io/static/css/main.7a02b319.css.map",
-    "main.a04e4d80.js.map": "/estimate.io/static/js/main.a04e4d80.js.map",
+    "main.562416a7.js.map": "/estimate.io/static/js/main.562416a7.js.map",
     "453.44193647.chunk.js.map": "/estimate.io/static/js/453.44193647.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7a02b319.css",
-    "static/js/main.a04e4d80.js"
+    "static/js/main.562416a7.js"
   ]
 }
