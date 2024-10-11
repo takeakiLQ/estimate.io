@@ -45,22 +45,21 @@ const FormComponent = ({ onSubmit }) => {
   const [uniformOptions, setUniformOptions] = useState([]);
   const [errors, setErrors] = useState({});
 
+  // メニューの表示・非表示を切り替える関数
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
-    // メニューの表示・非表示を切り替える関数
-    const toggleMenu = () => {
-      setMenuOpen(!menuOpen);
-    };
-  
-    // メニュークリック時の処理
-    const handleMenuClick = (option) => {
-      setMenuOpen(false);
-      if (option === "profile") {
-        navigate('/profile'); // プロフィールページに遷移
-      } else if (option === "logout") {
-        localStorage.removeItem("token"); // ログアウト処理
-        navigate('/'); // ログインページに戻る
-      }
-    };
+  // メニュークリック時の処理
+  const handleMenuClick = (option) => {
+    setMenuOpen(false);
+    if (option === "profile") {
+      navigate('/profile'); // プロフィールページに遷移
+    } else if (option === "logout") {
+      localStorage.removeItem("token"); // ログアウト処理
+      navigate('/'); // ログインページに戻る
+    }
+  };
 
   // 稼働曜日ラベルの定義
   const workDaysLabels = [
@@ -79,7 +78,6 @@ const FormComponent = ({ onSubmit }) => {
     const fetchOptions = async () => {
       try {
         const spreadsheetId = process.env.REACT_APP_SPREADSHEET_ID;
-        const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY;
         const ranges = [
           '各種マスタ!B2:B100',   // 都道府県
           '各種マスタ!D2:D100',   // 長期/短期区分
@@ -112,11 +110,16 @@ const FormComponent = ({ onSubmit }) => {
 
       } catch (error) {
         console.error("Error fetching options:", error);
+        alert("オプションデータの取得に失敗しました。ログインを確認してください。");
       }
     };
 
-    fetchOptions();
-  }, []);
+    if (token) {
+      fetchOptions();
+    } else {
+      console.log("アクセストークンが見つかりません");
+    }
+  }, [token]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -160,8 +163,7 @@ const FormComponent = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-
-          <header className="menu">
+      <header className="menu">
         {/* ハンバーガーメニューアイコン */}
         <div className="menu-icon" onClick={toggleMenu}>
           <span></span>
@@ -173,7 +175,7 @@ const FormComponent = ({ onSubmit }) => {
         {menuOpen && (
           <div className="dropdown-menu">
             <button onClick={() => handleMenuClick("profile")}>プロフィール</button>
-            <button onClick={() => handleMenuClick("logout")}>ログアウト</button>
+            <button className="logout-button" onClick={() => handleMenuClick("logout")}>ログアウト</button>
           </div>
         )}
       </header>
@@ -269,22 +271,27 @@ const FormComponent = ({ onSubmit }) => {
       </div>
 
       <fieldset>
-        <legend>稼働曜日</legend>
-        {workDaysLabels.map(({ key, label }) => (
-          <div key={key} className="toggle-container">
-            <label className="day-label">{label}</label>
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={formData.workDays[key]}
-                onChange={() => handleToggleChange(key)}
-              />
-              <span className="slider round"></span>
-            </label>
-          </div>
-        ))}
-        {errors.workDays && <p className="error">{errors.workDays}</p>}
-      </fieldset>
+  <legend>稼働曜日</legend>
+  {workDaysLabels.map(({ key, label }) => (
+    <div key={key} className="toggle-container">
+      <label className="day-label">{label}</label>
+      <label className="switch">
+        <input
+          type="checkbox"
+          checked={formData.workDays[key]}
+          onChange={() => handleToggleChange(key)}
+        />
+        <span className="slider round"></span>
+      </label>
+      {/* トグルスイッチの状態に応じたテキスト表示 */}
+      <span className="status-text">
+        {formData.workDays[key] ? '稼働あり' : '稼働なし'}
+      </span>
+    </div>
+  ))}
+  {errors.workDays && <p className="error">{errors.workDays}</p>}
+</fieldset>
+
 
       <button type="submit">決定</button>
     </form>

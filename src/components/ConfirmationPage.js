@@ -2,32 +2,14 @@
 
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './ConfirmationPage.css';
 
 const ConfirmationPage = () => {
-  const { state } = useLocation(); // FormComponentから渡されたデータ
+  const { state } = useLocation();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
-  // stateがない場合にフォームに戻る
-  if (!state || !state.formData) {
-    return (
-      <div className="error-container">
-        <p>エラー: 入力内容が見つかりません。</p>
-        <button onClick={() => navigate('/')}>フォームに戻る</button>
-      </div>
-    );
-  }
-
-  const handleBack = () => {
-    navigate('/input'); // フォームに戻る
-  };
-
-  const handleEstimate = () => {
-    console.log("見積実行データ:", state.formData);
-    alert("見積が作成されました！");
-  };
-
-  // 稼働曜日の日本語ラベル
   const workDaysLabels = {
     monday: '月',
     tuesday: '火',
@@ -37,6 +19,55 @@ const ConfirmationPage = () => {
     saturday: '土',
     sunday: '日',
     holiday: '祝',
+  };
+
+  const handleBack = () => {
+    navigate('/input');
+  };
+
+  const handleEstimate = async () => {
+    try {
+      const userName = localStorage.getItem("userName");
+      const userEmail = localStorage.getItem("userEmail");
+
+      const logData = [
+        new Date().toLocaleString(),
+        userName,
+        userEmail,
+        state.formData.region,
+        state.formData.longTerm,
+        state.formData.deliveryType,
+        state.formData.hasHeavyItems,
+        state.formData.baseDistance,
+        state.formData.vehicleType,
+        state.formData.collectionService,
+        state.formData.uniform,
+        Object.entries(state.formData.workDays).map(
+          ([day, isActive]) => `${workDaysLabels[day]}:${isActive ? '稼働あり' : '稼働なし'}`
+        ).join(', ')
+      ];
+
+      await axios.post(
+        `https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_SPREADSHEET_ID}/values/見積作成ログ!A1:append`,
+        {
+          values: [logData],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          params: {
+            valueInputOption: 'USER_ENTERED',
+          },
+        }
+      );
+
+      alert("見積が作成され、ログが記録されました！");
+    } catch (error) {
+      console.error("見積作成ログの記録に失敗しました:", error.response ? error.response.data : error.message);
+      alert("見積作成ログの記録に失敗しました。再度お試しください。");
+    }
   };
 
   return (
@@ -72,13 +103,13 @@ const ConfirmationPage = () => {
         </div>
         <div className="confirmation-row">
           <span className="confirmation-label">集金業務の有無</span>
-          <span className={state.formData.collectionService === 'あり' ? "confirmation-value-active" : "confirmation-value"}>
+          <span className={state.formData.collectionService === "あり" ? "confirmation-value-active" : "confirmation-value"}>
             {state.formData.collectionService}
           </span>
         </div>
         <div className="confirmation-row">
           <span className="confirmation-label">服装指定の有無</span>
-          <span className={state.formData.uniform === 'あり' ? "confirmation-value-active" : "confirmation-value"}>
+          <span className={state.formData.uniform === "あり" ? "confirmation-value-active" : "confirmation-value"}>
             {state.formData.uniform}
           </span>
         </div>
@@ -98,7 +129,7 @@ const ConfirmationPage = () => {
 
       <div className="button-group">
         <button onClick={handleBack} className="back-button">戻る</button>
-        <button onClick={handleEstimate}>見積作成</button>
+        <button onClick={handleEstimate} className="estimate-button">見積作成</button>
       </div>
     </div>
   );

@@ -30,7 +30,6 @@ h2 {
   margin-top: 5px;
 }
 
-
 /* ラベルのスタイル */
 .form-group label {
   font-weight: bold;
@@ -85,8 +84,8 @@ button[type="submit"]:hover {
   padding: 8px;
   border-radius: 6px;
   background-color: #eef;
-  flex-wrap: nowrap; /* 改行させない */
-  gap: 10px; /* 要素間の隙間を設定 */
+  flex-wrap: nowrap;
+  gap: 10px;
 }
 
 /* トグルのラベル */
@@ -95,7 +94,7 @@ button[type="submit"]:hover {
   color: #333;
   font-size: 1em;
   margin-right: 10px;
-  white-space: nowrap; /* 改行を防ぐ */
+  white-space: nowrap;
 }
 
 /* トグルスイッチ */
@@ -148,25 +147,27 @@ input:checked + .slider:before {
 .status-text {
   font-size: 0.85em;
   color: #777;
-  white-space: nowrap; /* 改行を防ぐ */
+  white-space: nowrap;
+  margin-left: 10px;
 }
 
 /* FormComponent.css */
-
 .form-component {
   width: 100%;
 }
 
+/* メニューを左に配置 */
 .menu {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start; /* 左揃え */
   padding: 10px;
   background-color: #f0f0f0;
   border-bottom: 1px solid #ccc;
   position: relative;
 }
 
+/* ハンバーガーメニューアイコンのスタイル */
 .menu-icon {
   display: flex;
   flex-direction: column;
@@ -185,7 +186,7 @@ input:checked + .slider:before {
 .dropdown-menu {
   position: absolute;
   top: 40px;
-  right: 10px;
+  left: 10px;
   background-color: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
@@ -207,6 +208,15 @@ input:checked + .slider:before {
   background-color: #f0f0f0;
 }
 
+/* ログアウトボタンのスタイル */
+.dropdown-menu .logout-button {
+  color: #ff4d4d; /* 赤色 */
+  font-weight: bold;
+}
+
+.dropdown-menu .logout-button:hover {
+  background-color: #ffe6e6; /* ホバー時に背景を薄い赤色に */
+}
 
 
 /* スマホ向けのスタイル */
@@ -232,7 +242,7 @@ input:checked + .slider:before {
 
   .toggle-container {
     padding: 10px;
-    justify-content: flex-start; /* 左揃え */
+    justify-content: flex-start;
     gap: 5px;
   }
 
