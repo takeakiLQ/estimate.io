@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/estimate.io/static/css/main.013435bb.css",
+    "main.js": "/estimate.io/static/js/main.ba466a7d.js",
+    "static/js/453.44193647.chunk.js": "/estimate.io/static/js/453.44193647.chunk.js",
+    "index.html": "/estimate.io/index.html",
+    "main.013435bb.css.map": "/estimate.io/static/css/main.013435bb.css.map",
+    "main.ba466a7d.js.map": "/estimate.io/static/js/main.ba466a7d.js.map",
+    "453.44193647.chunk.js.map": "/estimate.io/static/js/453.44193647.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.013435bb.css",
+    "static/js/main.ba466a7d.js"
+  ]
+}
