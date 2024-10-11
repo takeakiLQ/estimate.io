@@ -8,6 +8,7 @@ import FormComponent from './components/FormComponent';
 import ConfirmationPage from './components/ConfirmationPage';
 import Profile from './components/Profile';
 
+
 const App = () => {
   const [formData, setFormData] = useState(null); // フォームデータの状態を管理
 
@@ -19,7 +20,7 @@ const App = () => {
   return (
     // Google OAuthプロバイダー。クライアントIDは.envファイルから読み込みます。
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-      <Router>
+      <Router basename="/estimate.io">
         <Routes>
           {/* ログインページ */}
           <Route path="/" element={<Login />} />

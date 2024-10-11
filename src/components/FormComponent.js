@@ -92,7 +92,11 @@ const FormComponent = ({ onSubmit }) => {
         ];
 
         const requests = ranges.map(range =>
-          axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`)
+          axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}`, {
+            headers: {
+              Authorization: `Bearer ${token}` // アクセストークンを設定
+            }
+          })
         );
 
         const responses = await Promise.all(requests);
