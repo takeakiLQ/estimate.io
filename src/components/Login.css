@@ -30,3 +30,10 @@
 .google-login-button:hover {
   background-color: #2500f5; /* ホバー時のボタン色 */
 }
+
+.loading {
+  text-align: center;
+  font-size: 1.2em;
+  color: #007bff;
+  padding: 20px;
+}

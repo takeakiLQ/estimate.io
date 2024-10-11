@@ -1,6 +1,6 @@
 // src/components/Login.js
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -8,10 +8,12 @@ import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // ローディング状態
 
   const login = useGoogleLogin({
     scope: 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.email',
     onSuccess: async (response) => {
+      setLoading(true); // ローディングを開始
       try {
         // トークンをローカルストレージに保存
         localStorage.setItem("token", response.access_token);
@@ -30,6 +32,7 @@ const Login = () => {
         if (!userData.emailAddresses || !userData.names) {
           console.error("ユーザー情報の取得に失敗しました");
           alert("ユーザー情報の取得に失敗しました。再度ログインしてください。");
+          setLoading(false); // ローディングを停止
           return;
         }
 
@@ -62,13 +65,20 @@ const Login = () => {
       } catch (error) {
         console.error("ユーザー情報の取得またはログイン履歴の記録に失敗しました:", error.response ? error.response.data : error.message);
         alert("エラーが発生しました。再度ログインしてください。");
+        setLoading(false); // ローディングを停止
       }
     },
     onError: () => {
       console.log('Login failed');
       alert("ログインに失敗しました。再試行してください。");
+      setLoading(false); // ローディングを停止
     }
   });
+
+  // ローディング中の表示
+  if (loading) {
+    return <div className="loading">ログイン中...</div>;
+  }
 
   return (
     <div className="login-container">
