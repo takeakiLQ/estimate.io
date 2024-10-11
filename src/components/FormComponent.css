@@ -151,16 +151,11 @@ input:checked + .slider:before {
   margin-left: 10px;
 }
 
-/* FormComponent.css */
-.form-component {
-  width: 100%;
-}
-
-/* メニューを左に配置 */
+/* メニューアイコンを左に配置 */
 .menu {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* 左揃え */
+  justify-content: flex-start;
   padding: 10px;
   background-color: #f0f0f0;
   border-bottom: 1px solid #ccc;
@@ -183,6 +178,7 @@ input:checked + .slider:before {
   border-radius: 3px;
 }
 
+/* ドロップダウンメニュー */
 .dropdown-menu {
   position: absolute;
   top: 40px;
@@ -192,6 +188,9 @@ input:checked + .slider:before {
   border-radius: 8px;
   overflow: hidden;
   z-index: 100;
+  display: flex;
+  flex-direction: column; /* メニュー項目を縦に配置 */
+  padding: 10px; /* メニュー内の余白を追加 */
 }
 
 .dropdown-menu button {
@@ -217,7 +216,6 @@ input:checked + .slider:before {
 .dropdown-menu .logout-button:hover {
   background-color: #ffe6e6; /* ホバー時に背景を薄い赤色に */
 }
-
 
 /* スマホ向けのスタイル */
 @media (max-width: 600px) {
