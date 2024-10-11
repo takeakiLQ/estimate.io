@@ -95,7 +95,7 @@ const ConfirmationPage = () => {
         </div>
         <div className="confirmation-row">
           <span className="confirmation-label">基準距離</span>
-          <span className="confirmation-value">{state.formData.baseDistance}</span>
+          <span className="confirmation-value">{state.formData.baseDistance}㎞</span>
         </div>
         <div className="confirmation-row">
           <span className="confirmation-label">車種区分</span>

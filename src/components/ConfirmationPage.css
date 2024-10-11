@@ -41,10 +41,12 @@
   border-bottom: 1px solid #ddd;
 }
 
+/* ラベルと値のスタイルに省略設定を追加 */
 .confirmation-label {
   font-weight: bold;
   color: #333;
-  flex: 1.5;
+  flex: 2;
+  max-width: 20ch; /* 20文字分の幅 */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -55,7 +57,10 @@
   flex: 2;
   color: #555;
   text-align: right;
+  max-width: 20ch; /* 20文字分の幅 */
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   line-height: 1.2;
 }
 

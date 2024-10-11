@@ -227,7 +227,7 @@ const FormComponent = ({ onSubmit }) => {
       </div>
 
       <div className="form-group">
-        <label>基準距離</label>
+        <label>基準距離（㎞）</label>
         <select name="baseDistance" value={formData.baseDistance} onChange={handleChange}>
           <option value="">選択してください</option>
           {baseDistanceOptions.map((option, index) => (
