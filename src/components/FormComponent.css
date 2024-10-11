@@ -1,0 +1,252 @@
+/* フォーム全体のスタイル */
+form {
+  max-width: 100%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* フォームタイトル */
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+/* 各入力項目のコンテナ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+/* エラー */
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+
+/* ラベルのスタイル */
+.form-group label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+  font-size: 1em;
+}
+
+/* テキストやセレクト入力フィールドのスタイル */
+.form-group select,
+.form-group input[type="text"],
+.form-group input[type="time"] {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  color: #333;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.form-group select:focus,
+.form-group input[type="text"]:focus,
+.form-group input[type="time"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* フォームのボタン */
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* トグルスイッチのコンテナ */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: #eef;
+  flex-wrap: nowrap; /* 改行させない */
+  gap: 10px; /* 要素間の隙間を設定 */
+}
+
+/* トグルのラベル */
+.day-label {
+  font-weight: bold;
+  color: #333;
+  font-size: 1em;
+  margin-right: 10px;
+  white-space: nowrap; /* 改行を防ぐ */
+}
+
+/* トグルスイッチ */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* ステータスのテキスト */
+.status-text {
+  font-size: 0.85em;
+  color: #777;
+  white-space: nowrap; /* 改行を防ぐ */
+}
+
+/* FormComponent.css */
+
+.form-component {
+  width: 100%;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-icon span {
+  display: block;
+  width: 20px;
+  height: 3px;
+  background-color: #5a738e;
+  margin: 3px 0;
+  border-radius: 3px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.dropdown-menu button {
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background-color: #f0f0f0;
+}
+
+
+
+/* スマホ向けのスタイル */
+@media (max-width: 600px) {
+  form {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  .form-group label {
+    font-size: 0.9em;
+  }
+
+  .form-group select,
+  .form-group input[type="text"],
+  .form-group input[type="time"] {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .toggle-container {
+    padding: 10px;
+    justify-content: flex-start; /* 左揃え */
+    gap: 5px;
+  }
+
+  .switch {
+    width: 40px;
+    height: 20px;
+  }
+
+  .slider:before {
+    height: 16px;
+    width: 16px;
+  }
+
+  .status-text {
+    font-size: 0.8em;
+  }
+}

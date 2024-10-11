@@ -1,0 +1,121 @@
+/* 確認ページの全体スタイル */
+.confirmation-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* タイトル */
+  .confirmation-title {
+    text-align: center;
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  
+  /* 表形式のコンテナ */
+  .confirmation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .confirmation-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .confirmation-label {
+    font-weight: bold;
+    color: #333;
+    flex: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .confirmation-value {
+    flex: 2;
+    color: #555;
+    text-align: right;
+    white-space: nowrap;
+  }
+  
+  /* "あり"のときのスタイル */
+  .confirmation-value-active {
+    color: #00aaff;
+    font-weight: bold;
+  }
+  
+  /* 稼働曜日のリスト */
+  .workdays-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .workdays-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+  }
+  
+  .workdays-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* 稼働ありのスタイル */
+  .workdays-status-active {
+    color: #00aaff;
+    font-weight: bold;
+  }
+  
+  .workdays-status {
+    color: #555;
+  }
+  
+  /* ボタンのスタイル */
+  .button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .button-group button {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+  }
+  
+  .button-group button:last-child {
+    margin-right: 0;
+  }
+  
+  .button-group button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* 戻るボタンのスタイル */
+  .button-group .back-button {
+    background-color: #6c757d;
+  }
+  
+  .button-group .back-button:hover {
+    background-color: #5a6268;
+  }
+  
