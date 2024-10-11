@@ -6,14 +6,13 @@ form {
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
-  font-size: 1.05em; /* 全体の基本フォントサイズを少し大きく */
 }
 
 /* フォームタイトル */
 h2 {
   text-align: center;
   color: #333;
-  font-size: 1.6em; /* タイトルのフォントサイズを少し増加 */
+  font-size: 1.5em;
   margin-bottom: 20px;
 }
 
@@ -27,7 +26,7 @@ h2 {
 /* エラー */
 .error {
   color: red;
-  font-size: 1em; /* エラーメッセージのサイズ調整 */
+  font-size: 0.9em;
   margin-top: 5px;
 }
 
@@ -36,7 +35,7 @@ h2 {
   font-weight: bold;
   color: #555;
   margin-bottom: 5px;
-  font-size: 1.1em; /* ラベルのフォントサイズを少し増加 */
+  font-size: 1em;
 }
 
 /* テキストやセレクト入力フィールドのスタイル */
@@ -46,7 +45,7 @@ h2 {
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 1.1em; /* 入力フィールドのフォントサイズも少し大きく */
+  font-size: 1em;
   color: #333;
   background-color: #fff;
   transition: border-color 0.3s ease;
@@ -62,8 +61,8 @@ h2 {
 /* フォームのボタン */
 button[type="submit"] {
   width: 100%;
-  padding: 14px; /* ボタンのパディングを少し増加 */
-  font-size: 1.1em; /* ボタンのフォントサイズも大きく */
+  padding: 12px;
+  font-size: 1em;
   font-weight: bold;
   color: #fff;
   background-color: #007bff;
@@ -93,7 +92,7 @@ button[type="submit"]:hover {
 .day-label {
   font-weight: bold;
   color: #333;
-  font-size: 1.1em; /* トグルラベルのサイズも増加 */
+  font-size: 1em;
   margin-right: 10px;
   white-space: nowrap;
 }
@@ -146,17 +145,22 @@ input:checked + .slider:before {
 
 /* ステータスのテキスト */
 .status-text {
-  font-size: 1em; /* ステータスのフォントサイズを調整 */
+  font-size: 0.85em;
   color: #777;
   white-space: nowrap;
   margin-left: 10px;
 }
 
-/* メニューアイコンを左に配置 */
+/* FormComponent.css */
+.form-component {
+  width: 100%;
+}
+
+/* メニューを左に配置 */
 .menu {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-start; /* 左揃え */
   padding: 10px;
   background-color: #f0f0f0;
   border-bottom: 1px solid #ccc;
@@ -190,15 +194,30 @@ input:checked + .slider:before {
   z-index: 100;
 }
 
-/* ログアウトボタンのスタイルを赤色に */
+.dropdown-menu button {
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background-color: #f0f0f0;
+}
+
+/* ログアウトボタンのスタイル */
 .dropdown-menu .logout-button {
-  color: #ff4d4d;
+  color: #ff4d4d; /* 赤色 */
   font-weight: bold;
 }
 
 .dropdown-menu .logout-button:hover {
-  background-color: #ffe6e6;
+  background-color: #ffe6e6; /* ホバー時に背景を薄い赤色に */
 }
+
 
 /* スマホ向けのスタイル */
 @media (max-width: 600px) {
@@ -211,14 +230,14 @@ input:checked + .slider:before {
   }
 
   .form-group label {
-    font-size: 1em;
+    font-size: 0.9em;
   }
 
   .form-group select,
   .form-group input[type="text"],
   .form-group input[type="time"] {
     padding: 10px;
-    font-size: 1em;
+    font-size: 0.9em;
   }
 
   .toggle-container {
@@ -238,6 +257,6 @@ input:checked + .slider:before {
   }
 
   .status-text {
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
 }
