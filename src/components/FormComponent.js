@@ -32,6 +32,7 @@ const FormComponent = ({ onSubmit }) => {
       sunday: false,
       holiday: false,
     },
+    notes: "", // メモ欄の初期値
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -79,14 +80,14 @@ const FormComponent = ({ onSubmit }) => {
       try {
         const spreadsheetId = process.env.REACT_APP_SPREADSHEET_ID;
         const ranges = [
-          '各種マスタ!B2:B100',   // 都道府県
-          '各種マスタ!D2:D100',   // 長期/短期区分
-          '各種マスタ!F2:F100',   // 配送区分
-          '各種マスタ!H2:H100',   // 10kg以上荷物の有無
-          '各種マスタ!J2:J100',   // 基準距離
-          '各種マスタ!L2:L100',   // 車種区分
-          '各種マスタ!N2:N100',   // 集金業務の有無
-          '各種マスタ!P2:P100',   // 服装指定の有無
+          '各種マスタ!F2:F100',   // 都道府県
+          '各種マスタ!J2:J100',   // 長期/短期区分
+          '各種マスタ!M2:M100',   // 配送区分
+          '各種マスタ!P2:P100',   // 10kg以上荷物の有無
+          '各種マスタ!S2:S100',   // 基準距離
+          '各種マスタ!V2:V100',   // 車種区分
+          '各種マスタ!Y2:Y100',   // 集金業務の有無
+          '各種マスタ!AB2:AB100',   // 服装指定の有無
         ];
 
         const requests = ranges.map(range =>
@@ -193,6 +194,27 @@ const FormComponent = ({ onSubmit }) => {
         {errors.region && <p className="error">{errors.region}</p>}
       </div>
 
+      {/* 稼働開始・終了時間の入力フィールド */}
+      <div className="form-group">
+        <label>稼働開始時間</label>
+        <input
+          type="time"
+          name="startTime"
+          value={formData.startTime}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>稼働終了時間</label>
+        <input
+          type="time"
+          name="endTime"
+          value={formData.endTime}
+          onChange={handleChange}
+        />
+      </div>
+
       <div className="form-group">
         <label>長期/短期区分</label>
         <select name="longTerm" value={formData.longTerm} onChange={handleChange}>
@@ -271,27 +293,37 @@ const FormComponent = ({ onSubmit }) => {
       </div>
 
       <fieldset>
-  <legend>稼働曜日</legend>
-  {workDaysLabels.map(({ key, label }) => (
-    <div key={key} className="toggle-container">
-      <label className="day-label">{label}</label>
-      <label className="switch">
-        <input
-          type="checkbox"
-          checked={formData.workDays[key]}
-          onChange={() => handleToggleChange(key)}
-        />
-        <span className="slider round"></span>
-      </label>
-      {/* トグルスイッチの状態に応じたテキスト表示 */}
-      <span className="status-text">
-        {formData.workDays[key] ? '稼働あり' : '稼働なし'}
-      </span>
-    </div>
-  ))}
-  {errors.workDays && <p className="error">{errors.workDays}</p>}
-</fieldset>
+        <legend>稼働曜日</legend>
+        {workDaysLabels.map(({ key, label }) => (
+          <div key={key} className={`toggle-container ${key === 'saturday' ? 'bg-light-blue' : key === 'sunday' ? 'bg-light-red' : key === 'holiday' ? 'bg-light-pink' : ''}`}>
+            <label className="day-label">{label}</label>
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={formData.workDays[key]}
+                onChange={() => handleToggleChange(key)}
+              />
+              <span className="slider round"></span>
+            </label>
+            <span className="status-text">
+              {formData.workDays[key] ? '稼働あり' : '稼働なし'}
+            </span>
+          </div>
+        ))}
+        {errors.workDays && <p className="error">{errors.workDays}</p>}
+      </fieldset>
 
+      {/* メモ欄 */}
+      <div className="form-group no-space">
+      <label htmlFor="notes">メモ欄</label>
+        <textarea
+          id="notes"
+          name="notes"
+          value={formData.notes}
+          onChange={handleChange}
+          placeholder="必要な場合にメモを入力してください..."
+        ></textarea>
+      </div>
 
       <button type="submit">決定</button>
     </form>

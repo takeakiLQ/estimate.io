@@ -7,6 +7,7 @@ import Login from './components/Login';
 import FormComponent from './components/FormComponent';
 import ConfirmationPage from './components/ConfirmationPage';
 import Profile from './components/Profile';
+import ResultsPage from './components/ResultsPage';
 
 
 const App = () => {
@@ -30,6 +31,10 @@ const App = () => {
           <Route path="/confirmation" element={<ConfirmationPage formData={formData} />} />
           {/* プロフィールページ */}
           <Route path="/profile" element={<Profile />} />
+          {/*算定結果ページ*/}
+          <Route path="/result-page" element={<ResultsPage />} />
+
+          
         </Routes>
       </Router>
     </GoogleOAuthProvider>

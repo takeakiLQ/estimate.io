@@ -23,7 +23,7 @@ h2 {
   margin-bottom: 15px;
 }
 
-/* エラー */
+/* エラーメッセージのスタイル */
 .error {
   color: red;
   font-size: 0.9em;
@@ -40,8 +40,7 @@ h2 {
 
 /* テキストやセレクト入力フィールドのスタイル */
 .form-group select,
-.form-group input[type="text"],
-.form-group input[type="time"] {
+.form-group input[type="text"] {
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -52,7 +51,22 @@ h2 {
 }
 
 .form-group select:focus,
-.form-group input[type="text"]:focus,
+.form-group input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* 時間入力フィールドのスタイル */
+.form-group input[type="time"] {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1.2em; /* time入力のみフォントサイズを大きく */
+  color: #333;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
 .form-group input[type="time"]:focus {
   border-color: #007bff;
   outline: none;
@@ -61,6 +75,7 @@ h2 {
 /* フォームのボタン */
 button[type="submit"] {
   width: 100%;
+  margin-top: 20px; /* 決定ボタンの上にスペース */
   padding: 12px;
   font-size: 1em;
   font-weight: bold;
@@ -83,9 +98,23 @@ button[type="submit"]:hover {
   justify-content: space-between;
   padding: 8px;
   border-radius: 6px;
-  background-color: #eef;
+  background-color: rgb(228, 225, 225);
   flex-wrap: nowrap;
   gap: 10px;
+  margin-bottom: 8px;
+}
+
+/* 土曜日、日曜日、祝日の特定のスタイル */
+.toggle-container.bg-light-blue {
+  background-color: #e0f7fa; /* 土曜日の背景色を薄い青に */
+}
+
+.toggle-container.bg-light-red {
+  background-color: #ffe0e0; /* 日曜日の背景色を薄い赤に */
+}
+
+.toggle-container.bg-light-pink {
+  background-color: #ffe6f0; /* 祝日の背景色を薄いピンクに */
 }
 
 /* トグルのラベル */
@@ -189,8 +218,8 @@ input:checked + .slider:before {
   overflow: hidden;
   z-index: 100;
   display: flex;
-  flex-direction: column; /* メニュー項目を縦に配置 */
-  padding: 10px; /* メニュー内の余白を追加 */
+  flex-direction: column;
+  padding: 10px;
 }
 
 .dropdown-menu button {
@@ -209,13 +238,37 @@ input:checked + .slider:before {
 
 /* ログアウトボタンのスタイル */
 .dropdown-menu .logout-button {
-  color: #ff4d4d; /* 赤色 */
+  color: #ff4d4d;
   font-weight: bold;
 }
 
 .dropdown-menu .logout-button:hover {
-  background-color: #ffe6e6; /* ホバー時に背景を薄い赤色に */
+  background-color: #ffe6e6;
 }
+
+/* メモ欄のラベルのスタイル */
+.form-group.no-space label {
+  font-size: 0.9em;  /* フォントサイズを小さく */
+  color: #888;       /* 灰色に変更 */
+  margin-bottom: 3px; /* ラベルとテキストエリアの間を最小限に調整 */
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1.2em;
+  resize: vertical; /* ユーザーが高さを調整できるように */
+  min-height: 100px;
+  box-sizing: border-box; /* テキストエリアがはみ出ないように */
+}
+
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
 
 /* スマホ向けのスタイル */
 @media (max-width: 600px) {
@@ -232,29 +285,33 @@ input:checked + .slider:before {
   }
 
   .form-group select,
-  .form-group input[type="text"],
+  .form-group input[type="text"] {
+    padding: 10px;
+    font-size: 1em;
+  }
+
   .form-group input[type="time"] {
     padding: 10px;
-    font-size: 0.9em;
+    font-size: 1.2em; /* time入力のフォントサイズを大きめに */
   }
 
   .toggle-container {
     padding: 10px;
     justify-content: flex-start;
-    gap: 5px;
+    gap: 8px;
   }
 
   .switch {
-    width: 40px;
-    height: 20px;
+    width: 44px;
+    height: 22px;
   }
 
   .slider:before {
-    height: 16px;
-    width: 16px;
+    height: 19px;
+    width: 19px;
   }
 
   .status-text {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
 }

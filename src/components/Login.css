@@ -1,39 +1,59 @@
-.login-container {
+/* ローディング中の表示 */
+.loading {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  text-align: center;
-  box-sizing: border-box;
-  padding: 20px;
-  margin: 0 auto; /* 左右中央に配置 */
-  max-width: 400px; /* コンテナの最大幅を設定 */
+  height: 100vh;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #007bff;
+  background-color: rgba(255, 255, 255, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
-/* ボタンのスタイル */
+/* ローディングアニメーション */
+.loading::after {
+  content: " .";
+  animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+    content: " .";
+  }
+  40% {
+    content: " ..";
+  }
+  60% {
+    content: " ...";
+  }
+  100% {
+    content: "";
+  }
+}
+
+/* ログインボタン */
 .google-login-button {
-  width: 100%;
-  max-width: 250px;
-  padding: 12px;
+  padding: 10px 20px;
   font-size: 1em;
   font-weight: bold;
   color: #fff;
-  background-color: #4d433d; /* 通常時のボタン色 */
+  background-color: #4285f4;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  text-align: center;
-  margin-top: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
 }
 
 .google-login-button:hover {
-  background-color: #2500f5; /* ホバー時のボタン色 */
+  background-color: #357ae8;
 }
 
-.loading {
+.login-container {
   text-align: center;
-  font-size: 1.2em;
-  color: #007bff;
-  padding: 20px;
+  padding-top: 50px;
 }

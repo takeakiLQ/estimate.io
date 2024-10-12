@@ -32,7 +32,7 @@ const Profile = () => {
         <p><strong>氏名:</strong> {userInfo.name}</p>
         <p><strong>メールアドレス:</strong> {userInfo.email}</p>
       </div>
-      <button onClick={() => navigate('/input')}>入力フォームに戻る</button>
+      <button onClick={() => navigate('/input')} className="back-button">入力フォームに戻る</button>
     </div>
   );
 };

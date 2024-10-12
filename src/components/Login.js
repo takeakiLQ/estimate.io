@@ -11,7 +11,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false); // ローディング状態
 
   const login = useGoogleLogin({
-    scope: 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.email',
+    scope: 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/gmail.send',
     onSuccess: async (response) => {
       setLoading(true); // ローディングを開始
       try {
