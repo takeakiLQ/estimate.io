@@ -1,3 +1,15 @@
+/* ログインコンテナ */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 垂直方向に中央揃え */
+  align-items: center;     /* 水平方向に中央揃え */
+  height: 50vh;           /* 画面全体を占める高さ */
+  text-align: center;
+  padding-top: 50px;
+}
+
+
 /* ローディング中の表示 */
 .loading {
   display: flex;
@@ -36,6 +48,8 @@
   }
 }
 
+
+
 /* ログインボタン */
 .google-login-button {
   padding: 10px 20px;
@@ -56,4 +70,10 @@
 .login-container {
   text-align: center;
   padding-top: 50px;
+}
+
+.login-logo {
+  width: 192px; /* 必要に応じて変更 */
+  height: auto;
+  margin-bottom: 60px; /* ロゴとボタンの間のスペース */
 }

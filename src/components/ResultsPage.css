@@ -236,14 +236,15 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 1em;
+  font-weight: bold; /* 太文字 */
   margin: 0 0px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.send-email-button:hover {
-  background-color: #ff0000;
+.send-email-button:disabled {
+  background-color: #cccccc; /* 送信中はグレーで無効化を視覚的に表示 */
   cursor: not-allowed;
 }
 
