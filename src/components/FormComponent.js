@@ -1,15 +1,15 @@
 // src/components/FormComponent.js
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './FormComponent.css';
 
 const FormComponent = ({ onSubmit }) => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token"); // ローカルストレージからトークンを取得
+  const token = localStorage.getItem("token");
 
-  const [menuOpen, setMenuOpen] = useState(false); // メニューの開閉状態を管理
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const initialFormData = JSON.parse(localStorage.getItem("formData")) || {
     region: "",
@@ -32,7 +32,7 @@ const FormComponent = ({ onSubmit }) => {
       sunday: false,
       holiday: false,
     },
-    notes: "", // メモ欄の初期値
+    notes: "",
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -46,6 +46,16 @@ const FormComponent = ({ onSubmit }) => {
   const [uniformOptions, setUniformOptions] = useState([]);
   const [errors, setErrors] = useState({});
 
+  // Field references for focusing on errors
+  const regionRef = useRef();
+  const longTermRef = useRef();
+  const deliveryTypeRef = useRef();
+  const hasHeavyItemsRef = useRef();
+  const baseDistanceRef = useRef();
+  const vehicleTypeRef = useRef();
+  const collectionServiceRef = useRef();
+  const uniformRef = useRef();
+
   // メニューの表示・非表示を切り替える関数
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -55,12 +65,14 @@ const FormComponent = ({ onSubmit }) => {
   const handleMenuClick = (option) => {
     setMenuOpen(false);
     if (option === "profile") {
-      navigate('/profile'); // プロフィールページに遷移
+      navigate('/profile');
     } else if (option === "logout") {
-      localStorage.removeItem("token"); // ログアウト処理
-      navigate('/'); // ログインページに戻る
+      localStorage.removeItem("token");
+      navigate('/');
     }
   };
+
+  
 
   // 稼働曜日ラベルの定義
   const workDaysLabels = [
@@ -74,27 +86,24 @@ const FormComponent = ({ onSubmit }) => {
     { key: 'holiday', label: '祝' },
   ];
 
-  // Google Sheets APIからデータを取得して各オプションに設定
   useEffect(() => {
     const fetchOptions = async () => {
       try {
         const spreadsheetId = process.env.REACT_APP_SPREADSHEET_ID;
         const ranges = [
-          '各種マスタ!F2:F100',   // 都道府県
-          '各種マスタ!J2:J100',   // 長期/短期区分
-          '各種マスタ!M2:M100',   // 配送区分
-          '各種マスタ!P2:P100',   // 10kg以上荷物の有無
-          '各種マスタ!S2:S100',   // 基準距離
-          '各種マスタ!V2:V100',   // 車種区分
-          '各種マスタ!Y2:Y100',   // 集金業務の有無
-          '各種マスタ!AB2:AB100',   // 服装指定の有無
+          '各種マスタ!F2:F100',
+          '各種マスタ!J2:J100',
+          '各種マスタ!M2:M100',
+          '各種マスタ!P2:P100',
+          '各種マスタ!S2:S100',
+          '各種マスタ!V2:V100',
+          '各種マスタ!Y2:Y100',
+          '各種マスタ!AB2:AB100',
         ];
 
         const requests = ranges.map(range =>
           axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}`, {
-            headers: {
-              Authorization: `Bearer ${token}` // アクセストークンを設定
-            }
+            headers: { Authorization: `Bearer ${token}` }
           })
         );
 
@@ -151,6 +160,38 @@ const FormComponent = ({ onSubmit }) => {
 
     setErrors(newErrors);
 
+    if (Object.keys(newErrors).length > 0) {
+      const firstErrorField = Object.keys(newErrors)[0];
+      switch (firstErrorField) {
+        case "region":
+          regionRef.current.focus();
+          break;
+        case "longTerm":
+          longTermRef.current.focus();
+          break;
+        case "deliveryType":
+          deliveryTypeRef.current.focus();
+          break;
+        case "hasHeavyItems":
+          hasHeavyItemsRef.current.focus();
+          break;
+        case "baseDistance":
+          baseDistanceRef.current.focus();
+          break;
+        case "vehicleType":
+          vehicleTypeRef.current.focus();
+          break;
+        case "collectionService":
+          collectionServiceRef.current.focus();
+          break;
+        case "uniform":
+          uniformRef.current.focus();
+          break;
+        default:
+          break;
+      }
+    }
+
     return Object.keys(newErrors).length === 0;
   };
 
@@ -165,14 +206,12 @@ const FormComponent = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <header className="menu">
-        {/* ハンバーガーメニューアイコン */}
         <div className="menu-icon" onClick={toggleMenu}>
           <span></span>
           <span></span>
           <span></span>
         </div>
 
-        {/* ドロップダウンメニュー */}
         {menuOpen && (
           <div className="dropdown-menu">
             <button onClick={() => handleMenuClick("profile")}>プロフィール</button>
@@ -185,7 +224,7 @@ const FormComponent = ({ onSubmit }) => {
 
       <div className="form-group">
         <label>稼働地（都道府県）</label>
-        <select name="region" value={formData.region} onChange={handleChange}>
+        <select name="region" value={formData.region} onChange={handleChange} ref={regionRef}>
           <option value="">選択してください</option>
           {prefectures.map((prefecture, index) => (
             <option key={index} value={prefecture}>{prefecture}</option>
@@ -194,7 +233,6 @@ const FormComponent = ({ onSubmit }) => {
         {errors.region && <p className="error">{errors.region}</p>}
       </div>
 
-      {/* 稼働開始・終了時間の入力フィールド */}
       <div className="form-group">
         <label>稼働開始時間</label>
         <input
@@ -217,7 +255,7 @@ const FormComponent = ({ onSubmit }) => {
 
       <div className="form-group">
         <label>長期/短期区分</label>
-        <select name="longTerm" value={formData.longTerm} onChange={handleChange}>
+        <select name="longTerm" value={formData.longTerm} onChange={handleChange} ref={longTermRef}>
           <option value="">選択してください</option>
           {longTermOptions.map((option, index) => (
             <option key={index} value={option}>{option}</option>
@@ -228,7 +266,7 @@ const FormComponent = ({ onSubmit }) => {
 
       <div className="form-group">
         <label>配送区分</label>
-        <select name="deliveryType" value={formData.deliveryType} onChange={handleChange}>
+        <select name="deliveryType" value={formData.deliveryType} onChange={handleChange} ref={deliveryTypeRef}>
           <option value="">選択してください</option>
           {deliveryTypeOptions.map((option, index) => (
             <option key={index} value={option}>{option}</option>
@@ -239,7 +277,7 @@ const FormComponent = ({ onSubmit }) => {
 
       <div className="form-group">
         <label>10kg以上荷物の有無</label>
-        <select name="hasHeavyItems" value={formData.hasHeavyItems} onChange={handleChange}>
+        <select name="hasHeavyItems" value={formData.hasHeavyItems} onChange={handleChange} ref={hasHeavyItemsRef}>
           <option value="">選択してください</option>
           {hasHeavyItemsOptions.map((option, index) => (
             <option key={index} value={option}>{option}</option>
@@ -250,7 +288,7 @@ const FormComponent = ({ onSubmit }) => {
 
       <div className="form-group">
         <label>基準距離（㎞）</label>
-        <select name="baseDistance" value={formData.baseDistance} onChange={handleChange}>
+        <select name="baseDistance" value={formData.baseDistance} onChange={handleChange} ref={baseDistanceRef}>
           <option value="">選択してください</option>
           {baseDistanceOptions.map((option, index) => (
             <option key={index} value={option}>{option}</option>
@@ -261,7 +299,7 @@ const FormComponent = ({ onSubmit }) => {
 
       <div className="form-group">
         <label>車種区分</label>
-        <select name="vehicleType" value={formData.vehicleType} onChange={handleChange}>
+        <select name="vehicleType" value={formData.vehicleType} onChange={handleChange} ref={vehicleTypeRef}>
           <option value="">選択してください</option>
           {vehicleTypeOptions.map((option, index) => (
             <option key={index} value={option}>{option}</option>
@@ -272,7 +310,7 @@ const FormComponent = ({ onSubmit }) => {
 
       <div className="form-group">
         <label>集金業務の有無</label>
-        <select name="collectionService" value={formData.collectionService} onChange={handleChange}>
+        <select name="collectionService" value={formData.collectionService} onChange={handleChange} ref={collectionServiceRef}>
           <option value="">選択してください</option>
           {collectionServiceOptions.map((option, index) => (
             <option key={index} value={option}>{option}</option>
@@ -283,7 +321,7 @@ const FormComponent = ({ onSubmit }) => {
 
       <div className="form-group">
         <label>服装指定の有無</label>
-        <select name="uniform" value={formData.uniform} onChange={handleChange}>
+        <select name="uniform" value={formData.uniform} onChange={handleChange} ref={uniformRef}>
           <option value="">選択してください</option>
           {uniformOptions.map((option, index) => (
             <option key={index} value={option}>{option}</option>
@@ -313,9 +351,8 @@ const FormComponent = ({ onSubmit }) => {
         {errors.workDays && <p className="error">{errors.workDays}</p>}
       </fieldset>
 
-      {/* メモ欄 */}
       <div className="form-group no-space">
-      <label htmlFor="notes">メモ欄</label>
+        <label htmlFor="notes">メモ欄</label>
         <textarea
           id="notes"
           name="notes"
