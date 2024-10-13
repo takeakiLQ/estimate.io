@@ -285,14 +285,10 @@ textarea:focus {
   }
 
   .form-group select,
-  .form-group input[type="text"] {
+  .form-group input[type="text"],
+  .form-group input[type="time"] { /* 追加 */
     padding: 10px;
-    font-size: 1em;
-  }
-
-  .form-group input[type="time"] {
-    padding: 10px;
-    font-size: 1.2em; /* time入力のフォントサイズを大きめに */
+    font-size: 1.2em; /* すべての入力と選択フィールドのフォントサイズを1.2emに統一 */
   }
 
   .toggle-container {
