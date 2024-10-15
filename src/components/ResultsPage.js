@@ -151,7 +151,7 @@ const userEmail = localStorage.getItem("userEmail")
         {calculationResult.range1[14] && (
           <div className="range2-item sub-item">
           <span className="range2-label">基本料金</span>
-          <span className="range2-value">{calculationResult.range1[14][1]} 円</span>
+          <span className="range2-value">{calculationResult.range1[12][1]} 円</span>
           </div>
           )}
 
