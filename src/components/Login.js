@@ -86,10 +86,14 @@ const Login = () => {
 
       <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt="App Logo" className="login-logo" />
 
+
       <button className="google-login-button" onClick={login}>
         Googleでログイン
       </button>
+      ver 0.01
     </div>
+                
+
   );
 };
 
