@@ -90,7 +90,7 @@ const Login = () => {
       <button className="google-login-button" onClick={login}>
         Googleでログイン
       </button>
-      ver 0.01
+      ver 0.02
     </div>
                 
 

@@ -180,7 +180,7 @@ const ConfirmationPage = () => {
       } else {
         alert("計算が失敗しました。ログを確認してください。");
       }
-/*
+
       await axios.post(
         `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
         {
@@ -198,7 +198,7 @@ const ConfirmationPage = () => {
           },
         }
       );
-*/
+
     } catch (error) {
       console.error("エラー:", error);
       alert("見積作成中にエラーが発生しました。再試行してください。");
